@@ -12,11 +12,12 @@
   ],
 
   "content_scripts": [
-    { "matches": ["http://www.flickr.com/*"], "css": ["css/secret-faves.css"], "js": ["jquery-2.0.3.min.js", "js/secret.js"], "run_at": "document_start" }
+    { "matches": ["http://www.flickr.com/*"], "css": ["css/secret-faves.css"], "js": ["js/jquery-2.0.3.min.js", "js/secret-faves.js"], "run_at": "document_start" }
   ],
 
   "icons" : {
     "16" : "img/icon16.png",
+    "32" : "img/icon32.png",
     "48" : "img/icon48.png",
     "128" : "img/icon128.png"
   },
