@@ -6,7 +6,7 @@ A link to view secret faves is hidden in the Explore menu.
 
 Keyboard shortcuts:
 
-d - Toggle secret fave of the current photo
-shift-d - View secret faves
+* d - Toggle secret fave of the current photo
+* shift-d - View secret faves
 
 Click [here](https://chrome.google.com/webstore/detail/flickr-secret-faves/kfkeaclfeilnaialkjflklopnmknggmf) to install this extension.
