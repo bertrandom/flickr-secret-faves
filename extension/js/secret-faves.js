@@ -20,15 +20,15 @@ $(function() {
 
 	}
 
-    chrome.storage.local.get('url', function(items) {
+	chrome.storage.local.get('url', function(items) {
 
-    	if (items && items.url) {
-    		$('#secret-faves-link')[0].href = items.url;
-    	} else {
-    		$('#secret-faves-link').hide();
-    	}
+		if (items && items.url) {
+			$('#secret-faves-link')[0].href = items.url;
+		} else {
+			$('#secret-faves-link').hide();
+		}
 
-    });
+	});
 
 	matches = window.location.href.match(/photos\/(([0-9]+@N[0-9]+)|([0-9a-zA-Z-_]+))\/([0-9]+)\/?/);
 
@@ -36,35 +36,35 @@ $(function() {
 		return;
 	}
 
-	$('ul#stats_ul').prepend('<li class="divider"><span><span>&nbsp;</span></span></li>')
+	$('ul#stats_ul').prepend('<li class="divider"><span><span>&nbsp;</span></span></li>');
 	$('ul#stats_ul').prepend('<li class="stat-item"><a id="secret-fave" href="#"><span class="secret-star"></span>&nbsp;</a></li>');
 
 	faved = false;
 
 	photo_id = matches[4];
 
-    photo_ids = {};
+	photo_ids = {};
 
-    chrome.storage.local.get(['photo_ids'], function(items) {
+	chrome.storage.local.get(['photo_ids'], function(items) {
 
-    	if (items && items.photo_ids) {
-    		photo_ids = items.photo_ids;
-    	}
+		if (items && items.photo_ids) {
+			photo_ids = items.photo_ids;
+		}
 
-    	if (typeof photo_ids[photo_id] !== 'undefined') {
-    		$('#secret-fave .secret-star').addClass('faved');
-    		faved = true;
-    	}
+		if (typeof photo_ids[photo_id] !== 'undefined') {
+			$('#secret-fave .secret-star').addClass('faved');
+			faved = true;
+		}
 
-    	var toggle = function() {
+		var toggle = function() {
 
-    		var owner;
+			var owner;
 
 			matches = window.location.href.match(/photos\/(([0-9]+@N[0-9]+)|([0-9a-zA-Z-_]+))\/([0-9]+)\/?/);
 			owner = matches[1];
 			photo_id = matches[4];
 
-	    	faved = typeof photo_ids[photo_id] !== 'undefined';
+			faved = typeof photo_ids[photo_id] !== 'undefined';
 
 			if (faved) {
 				delete photo_ids[photo_id];
@@ -89,19 +89,23 @@ $(function() {
 				
 			});
 
-    	};
+		};
 
 		var getShortUrlCode = function(num) {
-			if (typeof num!=='number') num = parseInt(num);
+
+			if (typeof num !== 'number') {
+				num = parseInt(num);
+			}
+
 			var enc='';
 			var alpha='123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
 			var div=num;
-			while(num>=58){
+			while (num>=58) {
 				div=num/58;
 				var mod=(num-(58*Math.floor(div)));
 				enc=''+alpha.substr(mod,1)+enc;
 				num=Math.floor(div);
-			} 
+			}
 			return(div)?''+alpha.substr(div,1)+enc:enc;
 		};
 
@@ -126,7 +130,7 @@ $(function() {
 			}
 
 			photos = photos.sort(function (a, b) {
-			    return b.favedate - a.favedate;
+				return b.favedate - a.favedate;
 			});
 
 			var first_photo = photos[0];
@@ -150,7 +154,15 @@ $(function() {
 
 		};
 
-    	$(window).keypress(function(e) {
+		$(window).keypress(function(e) {
+
+			var activeElement = $(document.activeElement)[0];
+
+			console.log(activeElement);
+
+			if (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT') {
+				return;
+			}
 
 			var code = (e.keyCode ? e.keyCode : e.which);
 			if (code === 100) {
@@ -169,7 +181,7 @@ $(function() {
 
 			}
 
-    	});
+		});
 
 		$('#secret-fave').click(function(e) {
 
@@ -189,6 +201,6 @@ $(function() {
 			return false;
 		});
 
-    });
+	});
 
 });
